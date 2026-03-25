@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
         dir = Vector3.Normalize(dir+ray.normal);
 
+        dir.y = rb.linearVelocity.y;
         rb.linearVelocity = dir * moveSpeed * Time.deltaTime;
 
         //jump
