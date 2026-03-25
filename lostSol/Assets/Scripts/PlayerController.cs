@@ -37,15 +37,15 @@ public class PlayerController : MonoBehaviour
 
         bool hit = Physics.Raycast(feetFinder.transform.position, dir, out RaycastHit ray, maxCheckForSlopeDistance, layerMask);
 
-        dir = Vector3.Normalize(dir+ray.normal);
+        dir = Vector3.Normalize(dir+ray.normal) * moveSpeed;
 
         dir.y = rb.linearVelocity.y;
-        rb.linearVelocity = dir * moveSpeed * Time.deltaTime;
+        rb.linearVelocity = dir;
 
         //jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0,jumpHeight,0));
+            GetComponent<Rigidbody>().AddForce(new Vector3(0,jumpHeight,0), ForceMode.Impulse );
         }
 
 
