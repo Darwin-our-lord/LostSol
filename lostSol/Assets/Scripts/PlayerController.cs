@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject playerCam;
-    public GameObject feetFinder;
+    [SerializeField] 
+    GameObject playerCam;
 
-    public LayerMask layerMask;
+    [SerializeField] 
+    GameObject feetFinder;
+
+    [SerializeField] 
+    LayerMask layerMask;
 
     Rigidbody rb;
 
@@ -45,7 +49,8 @@ public class PlayerController : MonoBehaviour
         //jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0,jumpHeight,0), ForceMode.Impulse );
+            bool rayFloor = Physics.Raycast(gameObject.transform.position, Vector3.down, out RaycastHit hitFloor, 1.1f, layerMask);
+            if (rayFloor) GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
         }
 
 
