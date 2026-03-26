@@ -999,7 +999,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   moveSpeed: 5
-  rotationSpeed: 100
+  rotationSpeed: 2
   maxCheckForSlopeDistance: 0.7
   jumpHeight: 20
 --- !u!23 &1938288951

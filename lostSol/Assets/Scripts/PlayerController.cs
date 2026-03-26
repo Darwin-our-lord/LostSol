@@ -17,11 +17,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float moveSpeed = 200;
     [SerializeField]
-    float rotationSpeed = 100;
+    float rotationSpeed = 10;
     [SerializeField]
     float maxCheckForSlopeDistance = 0.7f;
     [SerializeField]
     float jumpHeight = 20;
+
+    float pitch = 0f; //used to stop the player from looking all the way around
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //move
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -53,13 +55,16 @@ public class PlayerController : MonoBehaviour
             if (rayFloor) GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
         }
 
-
         //camera
-        float rotationVer = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-        float rotationHor = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+        float rotationVer = Input.GetAxis("Mouse Y") * rotationSpeed;
+        float rotationHor = Input.GetAxis("Mouse X") * rotationSpeed;
 
         transform.Rotate(0, rotationHor, 0);
-        playerCam.transform.Rotate(rotationVer, 0, 0);
+
+        pitch -= rotationVer;
+        pitch = Mathf.Clamp(pitch, -80f, 90f);
+
+        playerCam.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
 
     }
 }
