@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region dodge
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
         {
             dodging = true;
 
