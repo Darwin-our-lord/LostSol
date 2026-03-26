@@ -1078,13 +1078,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8211993a636044aa01290e8df3ce7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCam: {fileID: 756939334}
+  playerCamPoint: {fileID: 756939334}
+  playerCamOBJ: {fileID: 330585543}
   feetFinder: {fileID: 1856459378}
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  camLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   moveSpeed: 5
-  rotationSpeed: 2
+  rotationSpeed: 10
   dodgeSpeed: 10
   dodgeTime: 1
   maxCheckForSlopeDistance: 0.7

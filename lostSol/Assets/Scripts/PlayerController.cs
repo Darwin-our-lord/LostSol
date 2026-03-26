@@ -1,16 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] 
-    GameObject playerCam;
+    GameObject playerCamPoint;
+
+    [SerializeField]
+    GameObject playerCamOBJ;
 
     [SerializeField] 
     GameObject feetFinder;
 
     [SerializeField] 
     LayerMask layerMask;
+
+    [SerializeField]
+    LayerMask camLayerMask;
 
     [Header("PlayerStats")]
     [SerializeField]
@@ -51,7 +58,11 @@ public class PlayerController : MonoBehaviour
         pitch -= rotationVer;
         pitch = Mathf.Clamp(pitch, -80f, 90f);
 
-        playerCam.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        playerCamPoint.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+
+        bool camHit = Physics.Raycast(playerCamPoint.transform.position, -playerCamPoint.transform.forward, out RaycastHit rayInfo, 10, camLayerMask);
+
+        if (camHit) playerCamOBJ.transform.localPosition = new Vector3 (0,1,-rayInfo.distance);
         #endregion
 
         if (dodging) return;
