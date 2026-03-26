@@ -1089,8 +1089,8 @@ MonoBehaviour:
     m_Bits: 51
   moveSpeed: 5
   rotationSpeed: 10
-  dodgeSpeed: 10
-  dodgeTime: 1
+  dodgeSpeed: 20
+  dodgeTime: 0.5
   maxCheckForSlopeDistance: 0.7
   jumpHeight: 20
 --- !u!4 &1938288953

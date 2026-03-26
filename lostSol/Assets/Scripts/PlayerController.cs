@@ -60,9 +60,10 @@ public class PlayerController : MonoBehaviour
 
         playerCamPoint.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
 
-        bool camHit = Physics.Raycast(playerCamPoint.transform.position, -playerCamPoint.transform.forward, out RaycastHit rayInfo, 10, camLayerMask);
+        bool camHit = Physics.Raycast(playerCamPoint.transform.position, -playerCamPoint.transform.forward, out RaycastHit rayInfo, 6, camLayerMask);
 
         if (camHit) playerCamOBJ.transform.localPosition = new Vector3 (0,1,-rayInfo.distance);
+        else playerCamOBJ.transform.localPosition = new Vector3(0, 1, -6);
         #endregion
 
         if (dodging) return;
