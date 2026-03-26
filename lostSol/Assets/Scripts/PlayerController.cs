@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,51 +12,37 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     LayerMask layerMask;
 
-    Rigidbody rb;
-
     [Header("PlayerStats")]
     [SerializeField]
     float moveSpeed = 200;
     [SerializeField]
     float rotationSpeed = 10;
     [SerializeField]
+    float dodgeSpeed = 10;
+    [SerializeField]
+    float dodgeTime = 1;
+    [SerializeField]
     float maxCheckForSlopeDistance = 0.7f;
     [SerializeField]
     float jumpHeight = 20;
 
-    float pitch = 0f; //used to stop the player from looking all the way around
+    Rigidbody rb;
+    Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    float pitch = 0f; //used to stop the player from looking all the way around
+    bool dodging = false;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        //move
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
 
-    
-        Vector3 dir = transform.forward * vertical + transform.right * horizontal;
-
-        bool hit = Physics.Raycast(feetFinder.transform.position, dir, out RaycastHit ray, maxCheckForSlopeDistance, layerMask);
-
-        dir = Vector3.Normalize(dir+ray.normal) * moveSpeed;
-
-        dir.y = rb.linearVelocity.y;
-        rb.linearVelocity = dir;
-
-        //jump
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            bool rayFloor = Physics.Raycast(gameObject.transform.position, Vector3.down, out RaycastHit hitFloor, 1.1f, layerMask);
-            if (rayFloor) GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
-        }
-
-        //camera
+        #region look
         float rotationVer = Input.GetAxis("Mouse Y") * rotationSpeed;
         float rotationHor = Input.GetAxis("Mouse X") * rotationSpeed;
 
@@ -65,6 +52,53 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -80f, 90f);
 
         playerCam.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        #endregion
 
+        if (dodging) return;
+
+        #region walk
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+    
+        Vector3 dir = transform.forward * vertical + transform.right * horizontal;
+
+        bool hit = Physics.Raycast(feetFinder.transform.position, dir, out RaycastHit ray, maxCheckForSlopeDistance, layerMask);
+
+        dir = Vector3.Normalize(dir+ray.normal) * moveSpeed;
+
+        dir.y = rb.linearVelocity.y;
+        rb.linearVelocity = dir;
+        #endregion
+
+        #region jump
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bool rayFloor = Physics.Raycast(gameObject.transform.position, Vector3.down, out RaycastHit hitFloor, 1.1f, layerMask);
+            if (rayFloor) GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
+        }
+        #endregion
+
+        #region dodge
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            dodging = true;
+
+            Vector3 dodgeDir = new Vector3();
+            if (Input.GetKey(KeyCode.W)) {dodgeDir = transform.forward; animator.SetTrigger("DodgeFront");}
+            else if (Input.GetKey(KeyCode.D)) {dodgeDir = transform.right; animator.SetTrigger("DodgeRight");}
+            else if (Input.GetKey(KeyCode.A)) {dodgeDir = -transform.right; animator.SetTrigger("DodgeLeft");}
+            else { dodgeDir = -transform.forward; animator.SetTrigger("DodgeBack"); }
+
+            rb.linearVelocity = dodgeDir * dodgeSpeed;
+
+            StartCoroutine(DodgeWait());
+        }
+        #endregion
+    }
+
+    IEnumerator DodgeWait()
+    {
+        yield return new WaitForSeconds(dodgeTime);
+        dodging = false;
     }
 }
