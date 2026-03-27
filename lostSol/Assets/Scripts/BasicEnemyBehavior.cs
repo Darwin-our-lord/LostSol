@@ -25,7 +25,7 @@ public class BasicEnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < 1)
+        if (Vector3.Distance(player.transform.position, transform.position) < 2)
         {
             bool hit = Physics.Raycast(transform.position, -(transform.position - player.transform.position).normalized, out RaycastHit hitInfo, 1);
             if (!hit) return;
@@ -36,17 +36,12 @@ public class BasicEnemyBehavior : MonoBehaviour
         }
         else if (Vector3.Distance(player.transform.position,transform.position) < 15)
         {
-
-
-
             bool hit = Physics.Raycast(transform.position, -(transform.position - player.transform.position).normalized, out RaycastHit hitInfo, 15);
             if (!hit) return;
             if (hitInfo.collider.gameObject.CompareTag("Player"))
             {
                 Vector3 flatToPlayer = new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z);
 
-                transform.Rotate(new Vector3(20,20,20)); //why tf wont it rotate
-                Debug.Log(transform.rotation);
                 agent.SetDestination(player.transform.position);
             }
 
