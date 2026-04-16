@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        wepAnimator = weaponHolder.transform.GetChild(1).GetComponent<Animator>();
+        wepAnimator = weaponHolder.transform.GetChild(0).GetComponent<Animator>();
     }
 
     void FixedUpdate()
