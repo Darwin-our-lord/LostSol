@@ -7,6 +7,9 @@ public class WeaponAttack : MonoBehaviour
     float attackDmg = 5;
     [SerializeField]
     float attackDelayTime = 0.6f;
+    [SerializeField]
+    float staminaPrAttack = 10;
+
 
     Animator wepAnimator;
 
@@ -25,7 +28,6 @@ public class WeaponAttack : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && !waitingForDelayTime)

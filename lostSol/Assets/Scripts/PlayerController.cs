@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     GameObject feetFinder;
 
+    [SerializeField]
+    GameObject weaponHolder;
+
     [SerializeField] 
     LayerMask layerMask;
 
@@ -35,15 +38,18 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     Animator animator;
+    Animator wepAnimator;
 
+    [Header("Usage")]
     float pitch = 0f; //used to stop the player from looking all the way around
-    bool dodging = false;
-
+    public bool dodging = false;
+    public bool blocking = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        wepAnimator = weaponHolder.transform.GetChild(1).GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -66,7 +72,20 @@ public class PlayerController : MonoBehaviour
         else playerCamOBJ.transform.localPosition = new Vector3(0, 1, -6);
         #endregion
 
-        if (dodging) return;
+        if (dodging) return; //anything below this cant be done while dodging
+
+        #region block
+        if (Input.GetKey(KeyCode.F))
+        {
+            blocking = true;
+            wepAnimator.SetBool("Blocking", true);
+        }
+        else 
+        { 
+            blocking = false;
+            wepAnimator.SetBool("Blocking", false);
+        }
+        #endregion
 
         #region walk
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -91,7 +110,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region dodge
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && !blocking)
         {
             dodging = true;
 

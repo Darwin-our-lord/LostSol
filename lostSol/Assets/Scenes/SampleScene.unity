@@ -1601,6 +1601,7 @@ MonoBehaviour:
   playerCamPoint: {fileID: 756939334}
   playerCamOBJ: {fileID: 330585543}
   feetFinder: {fileID: 1856459378}
+  weaponHolder: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1613,6 +1614,8 @@ MonoBehaviour:
   dodgeTime: 0.5
   maxCheckForSlopeDistance: 0.7
   jumpHeight: 20
+  dodging: 0
+  blocking: 0
 --- !u!4 &1938288953
 Transform:
   m_ObjectHideFlags: 0
@@ -1666,7 +1669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5242c1a0cf7a08f4d81598fb781119a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayerHealth: 100
+  maxStamina: 100
   playerHealth: 100
+  currentStaminaLeft: 100
   deathUI: {fileID: 1587729207}
 --- !u!1 &1979784332
 GameObject:
@@ -1831,7 +1837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6648432411693495389, guid: c6d32e809b38be84ab0d1eae53444716, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6648432411693495389, guid: c6d32e809b38be84ab0d1eae53444716, type: 3}
       propertyPath: m_LocalPosition.y
