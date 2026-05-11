@@ -52,6 +52,7 @@ public class PlayerCamera : MonoBehaviour
         fov = Mathf.Clamp(fov, minFov, maxFov);
         Camera.main.fieldOfView = fov;
 
+        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, transform.rotation.w);
 
         //playerCamPoint.transform.rotation = Quaternion.Euler(pitch, 0f, 0f);
 
