@@ -675,6 +675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756939335}
+  - component: {fileID: 756939336}
   m_Layer: 0
   m_Name: CAMPPOINT
   m_TagString: Untagged
@@ -690,14 +691,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756939334}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.71428, y: 2, z: 0.71428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 330585546}
-  m_Father: {fileID: 1938288953}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &756939336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756939334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b204be23995e16741bb40038d504b7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 17
+  player: {fileID: 1938288947}
+  camLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerCamPoint: {fileID: 756939334}
+  playerCamOBJ: {fileID: 330585543}
 --- !u!1 &759088796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1621,7 @@ MonoBehaviour:
   playerCamPoint: {fileID: 756939334}
   playerCamOBJ: {fileID: 330585543}
   feetFinder: {fileID: 1856459378}
-  weaponHolder: {fileID: 0}
+  weaponHolder: {fileID: 656286376}
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1629,7 +1649,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 756939335}
   - {fileID: 1856459379}
   - {fileID: 656286377}
   - {fileID: 759088797}
@@ -1960,6 +1979,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1529553426}
+  - {fileID: 756939335}
   - {fileID: 1938288953}
   - {fileID: 1677484688}
   - {fileID: 1455040182}

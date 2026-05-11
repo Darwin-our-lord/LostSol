@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        /*
         #region look
         float rotationVer = Input.GetAxis("Mouse Y") * rotationSpeed;
         float rotationHor = Input.GetAxis("Mouse X") * rotationSpeed;
 
-        transform.Rotate(0, rotationHor, 0);
+        playerCamPoint.transform.RotateAround(transform.position, Vector3.left, rotationHor);
 
         pitch -= rotationVer;
         pitch = Mathf.Clamp(pitch, -80f, 90f);
@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         if (camHit) playerCamOBJ.transform.localPosition = new Vector3 (0,1,-rayInfo.distance);
         else playerCamOBJ.transform.localPosition = new Vector3(0, 1, -6);
         #endregion
+        */
 
         if (dodging) return; //anything below this cant be done while dodging
 
