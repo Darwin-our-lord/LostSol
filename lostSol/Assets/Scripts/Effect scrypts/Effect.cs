@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public static class Effect 
+public class Effect : MonoBehaviour
 {
 
-
+    protected virtual void ActivateEffect()
+    {
+        // Implement the logic to activate the effect
+    }   
 
 
 
