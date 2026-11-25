@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamPoint: {fileID: 0}
-  playerCamOBJ: {fileID: 0}
+  playerCamOBJ: {fileID: 1149064678}
   feetFinder: {fileID: 1856459378}
   weaponHolder: {fileID: 656286376}
   layerMask:

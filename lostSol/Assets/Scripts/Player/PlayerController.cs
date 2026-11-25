@@ -91,15 +91,32 @@ public class PlayerController : MonoBehaviour
         #region walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-    
-        Vector3 dir = transform.forward * vertical + transform.right * horizontal;
 
-        bool hit = Physics.Raycast(feetFinder.transform.position, dir, out RaycastHit ray, maxCheckForSlopeDistance, layerMask);
+        // Get camera-relative movement direction
+        Vector3 forward = Vector3.ProjectOnPlane(playerCamOBJ.transform.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.ProjectOnPlane(playerCamOBJ.transform.right, Vector3.up).normalized;
 
-        dir = Vector3.Normalize(dir+ray.normal) * moveSpeed;
 
-        dir.y = rb.linearVelocity.y;
-        rb.linearVelocity = dir;
+        Vector3 dir = forward * vertical + right * horizontal;
+        dir = Vector3.ClampMagnitude(dir, 1f);
+
+        //find ground:D
+        bool grounded = Physics.Raycast(feetFinder.transform.position + Vector3.up * 0.1f, Vector3.down, out RaycastHit ray, maxCheckForSlopeDistance, layerMask);
+
+        //move like a slope slope sahur
+        if (grounded)
+        {
+            dir = Vector3.ProjectOnPlane(dir, ray.normal).normalized;
+            rb.linearVelocity = dir * moveSpeed;
+        }
+        else
+        {
+            //keep vertical velocity when in air
+            Vector3 velocity = rb.linearVelocity;
+            velocity.x = dir.x * moveSpeed;
+            velocity.z = dir.z * moveSpeed;
+            rb.linearVelocity = velocity;
+        }
         #endregion
 
         #region jump
